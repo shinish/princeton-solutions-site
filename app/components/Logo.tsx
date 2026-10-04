@@ -56,8 +56,23 @@ export function LogoMark({
   );
 }
 
-/** The three-lines-of-defence block from the logo, as a reusable motif. */
+/**
+ * The GRC / L1-L2-L3 block from the logo.
+ *
+ * Each cell pulses to the accent in sequence. The cycle is slow and the
+ * delta is small, so it reads as a pulse rather than a blink, and the global
+ * prefers-reduced-motion rule renders it static.
+ */
 export function ThreeLines({ className = "" }: { className?: string }) {
+  const cells = [
+    { x: 0, y: 0, w: 38, h: 26, base: "#3A3A4A", label: "G", lx: 19, ly: 18, lb: "#fff", d: 0 },
+    { x: 41, y: 0, w: 38, h: 26, base: "#0B0B12", label: "R", lx: 60, ly: 18, lb: "#FF2D78", d: 0.5 },
+    { x: 82, y: 0, w: 38, h: 26, base: "#C9CBD6", label: "C", lx: 101, ly: 18, lb: "#0B0B12", d: 1 },
+    { x: 0, y: 29, w: 120, h: 24, base: "#3A3A4A", label: "L1", lx: 60, ly: 46, lb: "#fff", d: 1.5 },
+    { x: 0, y: 56, w: 120, h: 24, base: "#0B0B12", label: "L2", lx: 60, ly: 73, lb: "#fff", d: 2 },
+    { x: 0, y: 83, w: 120, h: 24, base: "#C9CBD6", label: "L3", lx: 60, ly: 100, lb: "#0B0B12", d: 2.5 },
+  ];
+
   return (
     <svg
       viewBox="0 0 120 112"
@@ -66,19 +81,36 @@ export function ThreeLines({ className = "" }: { className?: string }) {
       aria-label="Governance, risk and compliance across the three lines of defence"
     >
       <g fontFamily="var(--f-mono)" fontSize="15" fontWeight="600" textAnchor="middle">
-        <rect x="0" y="0" width="38" height="26" fill="#3A3A4A" />
-        <rect x="41" y="0" width="38" height="26" fill="#0B0B12" />
-        <rect x="82" y="0" width="38" height="26" fill="#C9CBD6" />
-        <text x="19" y="18" fill="#fff">G</text>
-        <text x="60" y="18" fill="#FF2D78">R</text>
-        <text x="101" y="18" fill="#fff">C</text>
-
-        <rect x="0" y="29" width="120" height="24" fill="#3A3A4A" />
-        <text x="60" y="46" fill="#fff">L1</text>
-        <rect x="0" y="56" width="120" height="24" fill="#0B0B12" />
-        <text x="60" y="73" fill="#fff">L2</text>
-        <rect x="0" y="83" width="120" height="24" fill="#C9CBD6" />
-        <text x="60" y="100" fill="#0B0B12">L3</text>
+        {cells.map((c) => (
+          <g key={c.label}>
+            <rect
+              className="grc-cell"
+              x={c.x}
+              y={c.y}
+              width={c.w}
+              height={c.h}
+              style={
+                {
+                  "--cell-base": c.base,
+                  animationDelay: `${c.d}s`,
+                } as React.CSSProperties
+              }
+            />
+            <text
+              className="grc-label"
+              x={c.lx}
+              y={c.ly}
+              style={
+                {
+                  "--label-base": c.lb,
+                  animationDelay: `${c.d}s`,
+                } as React.CSSProperties
+              }
+            >
+              {c.label}
+            </text>
+          </g>
+        ))}
 
         {/* vertical gutters that make the banded grid read as a matrix */}
         <rect x="38" y="29" width="3" height="78" fill="currentColor" />

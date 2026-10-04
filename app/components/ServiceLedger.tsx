@@ -63,10 +63,11 @@ export default function ServiceLedger({ limit }: { limit?: number }) {
 
             <div className="pb-8 grid gap-8 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-16 pl-0 sm:pl-[52px]">
               <div>
-                <p className="text-[16px] leading-[1.6] text-ink max-w-[46ch]">{s.blurb}</p>
+                <p className="rv-glow text-[16px] leading-[1.6] text-ink max-w-[46ch]">{s.blurb}</p>
                 <Link
                   href={`/services/${slug}`}
-                  className="link-ul mt-6 inline-flex items-center gap-2.5 text-[15px] font-semibold text-accent-ink no-underline"
+                  className="rv link-ul mt-6 inline-flex items-center gap-2.5 text-[15px] font-semibold text-accent-ink no-underline"
+                  style={{ "--i": 2 } as React.CSSProperties}
                 >
                   Read the full scope
                   <span aria-hidden="true" className="bands text-accent-ink" />
@@ -74,10 +75,11 @@ export default function ServiceLedger({ limit }: { limit?: number }) {
               </div>
 
               <ul className="grid gap-0 border-t border-rule">
-                {s.bullets.map((b) => (
+                {s.bullets.map((b, bi) => (
                   <li
                     key={b}
-                    className="grid grid-cols-[auto_1fr] gap-3.5 items-baseline py-3.5 border-b border-rule text-[14.5px] leading-[1.5] text-muted"
+                    style={{ "--i": bi + 3 } as React.CSSProperties}
+                    className="rv grid grid-cols-[auto_1fr] gap-3.5 items-baseline py-3.5 border-b border-rule text-[14.5px] leading-[1.5] text-muted"
                   >
                     <span aria-hidden="true" className="block w-[10px] h-[2px] bg-accent mt-[9px]" />
                     <span>{b}</span>

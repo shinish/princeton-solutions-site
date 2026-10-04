@@ -172,3 +172,32 @@ test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
     });
   }
 });
+
+test.describe("reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("all animation and transition durations collapse", async ({ page }) => {
+    await page.goto("/");
+    const moving = await page.evaluate(() => {
+      const bad: string[] = [];
+      for (const el of document.querySelectorAll<HTMLElement>("body *, body *::before")) {
+        const cs = getComputedStyle(el);
+        const dur = (v: string) =>
+          v.split(",").map((d) => parseFloat(d) * (d.includes("ms") ? 1 : 1000));
+        const slow = [...dur(cs.animationDuration), ...dur(cs.transitionDuration)].some(
+          (ms) => ms > 1,
+        );
+        if (slow) bad.push(`${el.tagName.toLowerCase()}.${el.className.toString().slice(0, 40)}`);
+      }
+      return bad.slice(0, 5);
+    });
+    expect(moving, "elements still animating under prefers-reduced-motion").toEqual([]);
+  });
+
+  test("hero content is visible, not stuck at opacity 0", async ({ page }) => {
+    await page.goto("/");
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect(await h1.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+  });
+});

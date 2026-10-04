@@ -26,25 +26,39 @@ export default function Home() {
   return (
     <>
       {/* ─────────────────────────── hero (dark) ─────────────────────────── */}
-      <section className="relative aurora text-white overflow-hidden border-b border-rule-dark">
+      <section className="relative bg-dark text-white overflow-hidden border-b border-rule-dark">
+        {/* gradient field lives on its own layer so it can drift without
+            dragging the text with it */}
+        <div aria-hidden="true" className="aurora aurora-drift absolute inset-0" />
         <div aria-hidden="true" className="dotgrid absolute inset-0 text-white pointer-events-none" />
+
         <div className={`${wrap} relative pt-[clamp(56px,9vw,132px)] pb-[clamp(48px,7vw,104px)]`}>
-          <p className="label label-on-dark">
+          <p className="hero-in label label-on-dark" style={{ "--i": 0 } as React.CSSProperties}>
             <span className="bands" />
             Trust through governance · Est. 2012
           </p>
-          <h1 className={`${h1} mt-6 max-w-[17ch] text-white`}>
+
+          <h1
+            className={`hero-in ${h1} mt-6 max-w-[17ch] text-white`}
+            style={{ "--i": 1 } as React.CSSProperties}
+          >
             Independent assurance for technology, security and{" "}
-            <span className="text-accent">AI</span>
+            <span className="ai-accent text-accent">AI</span>
           </h1>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16 lg:items-end">
-            <p className="text-[clamp(16px,1.35vw,19px)] leading-[1.6] text-white/75 max-w-[58ch]">
+            <p
+              className="hero-in text-[clamp(16px,1.35vw,19px)] leading-[1.6] text-white/75 max-w-[58ch]"
+              style={{ "--i": 2 } as React.CSSProperties}
+            >
               We help regulated organizations prove their controls work. IT audit, governance,
               risk and compliance, third-party risk and AI governance — delivered by senior
               practitioners, evidenced to the standard regulators and external auditors expect.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div
+              className="hero-in flex flex-wrap gap-3"
+              style={{ "--i": 3 } as React.CSSProperties}
+            >
               <ButtonLink href="/contact">Discuss an engagement</ButtonLink>
               <ButtonLink href="/services" variant="on-dark">View services</ButtonLink>
             </div>
