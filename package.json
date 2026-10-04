@@ -2,10 +2,17 @@
   "name": "princeton",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "validate": "next build && node scripts/validate.mjs",
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "serve": "serve out -l 3300",
+    "shots": "node scripts/shots.mjs",
+    "check": "next build && node scripts/validate.mjs && playwright test"
   },
   "dependencies": {
     "next": "16.3.8",
@@ -13,10 +20,13 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

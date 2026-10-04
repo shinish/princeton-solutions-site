@@ -1,26 +1,214 @@
 @import "tailwindcss";
 
+/* ===========================================================================
+   Princeton Solutions — dual-surface dark/light system
+   Structure studied from cerebrium.ai: a dark hero carrying a sculptural
+   magenta gradient, alternating with light content sections, mono bullet
+   eyebrows and a dot-grid accent.
+
+   Measured contrast:
+     ON DARK  #0B0B12 — white 19.61  dim 12.14  muted 7.52  magenta 5.51
+     ON LIGHT #EDF0F3 — ink 16.55  muted 7.16  accent-ink #B8004F 5.83
+     Magenta #FF2D78 fails on light (3.11) so never carries text there.
+     White on magenta is 3.56 — FAILS — so magenta fills take dark labels (5.51).
+   =========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --surface: #EDF0F3;      /* light page ground */
+  --surface-alt: #F7F9FA;  /* alternating light band */
+  --surface-2: #E982E9;    /* unused placeholder guard */
+  --dark: #0B0B12;         /* dark sections */
+  --dark-2: #14141D;       /* raised dark panel */
+  --ink: #101018;          /* text on light */
+  --accent: #FF2D78;       /* magenta — dark surfaces + fills only */
+  --accent-ink: #B8004F;   /* magenta that is legible on light */
+  --muted: #4A4F5C;        /* secondary text on light */
+  --muted-dark: #9BA0B0;   /* secondary text on dark */
+  --rule: #D8DCE2;         /* hairline on light */
+  --rule-dark: #2E2E3C;    /* hairline on dark */
+
+  --f-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --f-body: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Full-bleed: no max-width cap, gutters only. */
+  --gutter: clamp(18px, 4vw, 72px);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
+  --color-rule: var(--rule);
+  --color-rule-dark: var(--rule-dark);
+
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --font-mono: var(--f-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+
+  body { background: var(--surface); color: var(--ink); }
+
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ::selection { background: var(--accent); color: var(--dark); }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ---- Angular buttons (kept from the brief) ---------------------------
+     Shape painted by ::before so the element stays rectangular: the focus
+     ring is never clipped and the hit area keeps a full 50px. Labels are
+     plain horizontal text, never skewed.                                 */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 0 30px;
+    font-family: var(--f-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    isolation: isolate;
+    transition: color .16s;
+  }
+  .btn > span { position: relative; z-index: 1; }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    clip-path: polygon(13px 0, 100% 0, calc(100% - 13px) 100%, 0 100%);
+    transition: background .16s, transform .16s;
+  }
+  .btn:active::before { transform: translateY(1px); }
+
+  /* magenta fill takes a DARK label — white on magenta is only 3.56:1 */
+  .btn-primary { color: var(--dark); }
+  .btn-primary::before { background: var(--accent); }
+  .btn-primary:hover::before { background: #FF5C97; }
+
+  .btn-ghost { color: var(--ink); }
+  .btn-ghost::before {
+    background: currentColor;
+    clip-path: polygon(
+      13px 0, 100% 0, calc(100% - 13px) 100%, 0 100%,
+      13px 0,
+      14.6px 1.5px, 1.6px calc(100% - 1.5px), calc(100% - 14.6px) calc(100% - 1.5px),
+      calc(100% - 1.6px) 1.5px, 14.6px 1.5px
+    );
+  }
+  .btn-ghost:hover { color: var(--accent); }
+
+  /* on dark surfaces */
+  .btn-on-dark { color: #fff; }
+  .btn-on-dark::before {
+    background: currentColor;
+    clip-path: polygon(
+      13px 0, 100% 0, calc(100% - 13px) 100%, 0 100%,
+      13px 0,
+      14.6px 1.5px, 1.6px calc(100% - 1.5px), calc(100% - 14.6px) calc(100% - 1.5px),
+      calc(100% - 1.6px) 1.5px, 14.6px 1.5px
+    );
+  }
+  .btn-on-dark:hover { color: var(--accent); }
+
+  .btn-accent { color: var(--dark); }
+  .btn-accent::before { background: var(--accent); }
+  .btn-accent:hover::before { background: #FF5C97; }
+
+  .btn[aria-disabled="true"], .btn:disabled { cursor: not-allowed; color: var(--muted); }
+  .btn[aria-disabled="true"]::before, .btn:disabled::before { background: var(--rule); }
+
+  /* ---- Motifs ---------------------------------------------------------- */
+  /* bullet eyebrow marker */
+  .bands {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: currentColor;
+    flex: none;
+  }
+
+  /* dot grid with occasional filled cells — the cerebrium accent texture */
+  .dotgrid {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity: .18;
+  }
+
+  /* sculptural magenta field for dark heroes — layered gradients, no asset */
+  .aurora {
+    background:
+      radial-gradient(120% 90% at 78% 18%, rgba(255,45,120,.50) 0%, rgba(255,45,120,0) 58%),
+      radial-gradient(90% 70% at 96% 62%, rgba(173,30,150,.52) 0%, rgba(173,30,150,0) 62%),
+      radial-gradient(70% 120% at 58% 108%, rgba(120,20,110,.46) 0%, rgba(120,20,110,0) 60%),
+      linear-gradient(104deg, #0B0B12 0%, #150a18 42%, #2a0c2b 70%, #46103f 100%);
+  }
+
+  /* ---- Editorial primitives ------------------------------------------- */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  .label-on-dark { color: var(--accent); }
+  .label-muted { color: var(--muted); }
+
+  .link-ul {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1.5px;
+    transition: background-size .22s cubic-bezier(.2,.7,.3,1);
+  }
+  .link-ul:hover { background-size: 100% 1.5px; }
+
+  .skip {
+    position: absolute;
+    left: 12px;
+    top: -60px;
+    z-index: 100;
+    background: var(--accent);
+    color: var(--dark);
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: top .18s;
+  }
+  .skip:focus { top: 12px; }
 }

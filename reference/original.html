@@ -1,0 +1,450 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Princeton Solutions Inc.</title>
+<meta name="description" content="Princeton Solutions Inc. provides independent IT audit, GRC, cybersecurity, regulatory compliance, third-party risk and AI governance services to regulated organizations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: working-paper aesthetic — a ruled ledger page, single column of sections on a 1120px measure, control-ID tags as the recurring detail */
+:root{
+  --paper:#F6F7F5; --surface:#FFFFFF; --ink:#14201D; --muted:#55615D; --rule:#D9DFDB;
+  --accent:#0F6A5B; --accent-soft:#E3EFEB; --brass:#9A6B1F; --band:#14201D; --band-fg:#E8EEEB;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --measure:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0E1513; --surface:#15201D; --ink:#E6ECE9; --muted:#9BA8A3; --rule:#2A3733;
+  --accent:#5BC0AA; --accent-soft:#183029; --brass:#D6A75A; --band:#0A100E; --band-fg:#E6ECE9; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1513; --surface:#15201D; --ink:#E6ECE9; --muted:#9BA8A3; --rule:#2A3733;
+  --accent:#5BC0AA; --accent-soft:#183029; --brass:#D6A75A; --band:#0A100E; --band-fg:#E6ECE9; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--measure);margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4vw,44px)}
+h3{font-size:22px}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:3px;white-space:nowrap}
+
+/* header */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.mark{width:34px;height:34px;flex:none}
+.brand-name{font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:.01em;line-height:1}
+.brand-name small{display:block;font-family:var(--f-mono);font-size:10.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink);text-decoration:none;font-size:15px;font-weight:500}
+.nav ul a:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 var(--f-body);padding:13px 20px;border-radius:4px;text-decoration:none;border:1px solid var(--accent);cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--paper)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--accent)}
+.nav .btn{padding:10px 16px;font-size:14px}
+@media (max-width:900px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(56px,8vw,104px) clamp(48px,6vw,80px);border-bottom:1px solid var(--rule)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(40px,6vw,68px);letter-spacing:-.01em;margin-block:18px 22px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.wp{background:var(--surface);border:1px solid var(--rule);border-radius:6px;box-shadow:0 1px 0 var(--rule),0 18px 40px -24px rgba(20,32,29,.35);font-size:14px;min-width:0}
+.wp-head{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wp-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:11px 18px;border-bottom:1px dashed var(--rule)}
+.wp-row:last-child{border-bottom:0}
+.wp-row dt{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.wp-row dd{margin:0}
+.status{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--accent)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.tick{font-family:var(--f-mono);color:var(--brass)}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.fact{padding:26px clamp(12px,2vw,24px);border-right:1px solid var(--rule)}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-family:var(--f-display);font-weight:500;font-size:30px;line-height:1.1}
+.fact span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
+
+section.block{padding-block:clamp(64px,8vw,104px);border-bottom:1px solid var(--rule)}
+.block-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:48px}
+.block-head h2{margin-top:12px}
+@media (max-width:860px){.block-head{grid-template-columns:1fr}}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.svc{padding:32px clamp(0px,2vw,28px) 34px 0;border-bottom:1px solid var(--rule);display:grid;gap:14px;align-content:start}
+.svc:nth-child(odd){padding-right:clamp(16px,3vw,40px);border-right:1px solid var(--rule)}
+.svc:nth-child(even){padding-left:clamp(16px,3vw,40px)}
+.svc-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.svc p{color:var(--muted)}
+.svc ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:15.5px}
+.svc li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:6px}
+.svc li::before{content:"—";color:var(--brass);font-family:var(--f-mono)}
+@media (max-width:760px){.services{grid-template-columns:1fr}.svc:nth-child(odd),.svc:nth-child(even){padding-inline:0;border-right:0}}
+
+/* models */
+.models{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.model{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:24px;display:grid;gap:10px;align-content:start}
+.model h3{font-size:20px}
+.model p{color:var(--muted);font-size:15.5px}
+@media (max-width:980px){.models{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.models{grid-template-columns:1fr}}
+
+/* approach */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));counter-reset:step;border-top:1px solid var(--ink)}
+.steps li{padding:24px 24px 0 0;display:grid;gap:10px;align-content:start;counter-increment:step}
+.steps li::before{content:"Phase " counter(step);font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+.steps p{color:var(--muted);font-size:15.5px}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* frameworks */
+.fw{display:grid;gap:0;border-top:1px solid var(--ink)}
+.fw-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;padding-block:22px;border-bottom:1px solid var(--rule)}
+.fw-row h3{font-size:19px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-mono);font-size:13px;padding:6px 11px;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+@media (max-width:700px){.fw-row{grid-template-columns:1fr;gap:12px}}
+
+/* industries + why */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,5vw,72px)}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.list-ruled{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid var(--ink)}
+.list-ruled li{padding:16px 0;border-bottom:1px solid var(--rule);display:grid;gap:4px}
+.list-ruled b{font-weight:600}
+.list-ruled span{color:var(--muted);font-size:15.5px}
+
+/* credentials band */
+.band{background:var(--band);color:var(--band-fg);padding-block:clamp(56px,7vw,88px)}
+.band .eyebrow{color:var(--brass)}
+.band h2{color:var(--band-fg);margin-top:12px;max-width:22ch}
+.creds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:40px;border-top:1px solid color-mix(in srgb,var(--band-fg) 25%,transparent)}
+.cred{padding:20px 20px 20px 0;border-bottom:1px solid color-mix(in srgb,var(--band-fg) 15%,transparent)}
+.cred b{display:block;font-family:var(--f-mono);font-size:15px;font-weight:500;letter-spacing:.04em}
+.cred span{font-size:14px;opacity:.72}
+.band .note{margin-top:28px;font-size:15px;opacity:.72;max-width:70ch}
+@media (max-width:860px){.creds{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px)}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.contact-meta{margin-top:28px;display:grid;gap:16px}
+.contact-meta div{display:grid;gap:2px}
+.contact-meta dt{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.contact-meta dd{margin:0;font-size:17px}
+form.card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:clamp(20px,3vw,32px);display:grid;gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:14px;font-weight:600}
+.field input,.field textarea,.field select{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:11px 12px;width:100%}
+.field textarea{min-height:120px;resize:vertical}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.form-msg{font-size:14.5px;color:var(--muted)}
+
+footer{padding-block:32px;font-size:14px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+</style>
+
+</head><body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Princeton Solutions Inc. home">
+      <svg class="mark" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="3" fill="none" stroke="var(--ink)" stroke-width="1.5"/><path d="M8 24V10h8a5 5 0 0 1 0 10H8" fill="none" stroke="var(--accent)" stroke-width="2.4"/><path d="M19 23.5l3 3 6-7" fill="none" stroke="var(--brass)" stroke-width="2"/></svg>
+      <span class="brand-name">Princeton Solutions<small>Inc. · Est. 2012</small></span>
+    </a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#engagements">Engagements</a></li>
+      <li><a href="#frameworks">Frameworks</a></li>
+      <li><a href="#industries">Industries</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#contact">Request a consultation</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">IT Audit · GRC · Cybersecurity · AI Governance</span>
+        <h1>Independent assurance for technology, security and <em>AI</em>.</h1>
+        <p class="lede">Princeton Solutions helps regulated organizations prove their controls work. We deliver IT audit, governance, risk and compliance, third-party risk and AI governance services that stand up to regulators, external auditors and boards.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#contact">Discuss an engagement</a>
+          <a class="btn btn-ghost" href="#services">View services</a>
+        </div>
+      </div>
+      <aside class="wp" aria-label="Sample control test record">
+        <div class="wp-head"><span>Control test record</span><span>Sample</span></div>
+        <dl style="margin:0">
+          <div class="wp-row"><dt>Control</dt><dd><span class="tag">AIG-06</span>&nbsp; AI system risk assessment performed before deployment</dd></div>
+          <div class="wp-row"><dt>Criteria</dt><dd>ISO/IEC 42001 Cl. 6.1.2 · NIST AI RMF MAP 1.1</dd></div>
+          <div class="wp-row"><dt>Procedure</dt><dd>Inspected 25 of 25 production models for an approved risk assessment, owner sign-off and residual-risk rating.</dd></div>
+          <div class="wp-row"><dt>Evidence</dt><dd><span class="tick">✓</span> Model inventory &nbsp;<span class="tick">✓</span> Assessments &nbsp;<span class="tick">✓</span> Approvals</dd></div>
+          <div class="wp-row"><dt>Result</dt><dd><span class="status">Operating effectively</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="facts">
+      <div class="fact"><b>2012</b><span>Established in Pennsylvania</span></div>
+      <div class="fact"><b>20+ yrs</b><span>Practitioner experience in regulated financial services</span></div>
+      <div class="fact"><b>3 regions</b><span>Vendor audits across the Americas, Europe and Asia</span></div>
+      <div class="fact"><b>3 lines</b><span>Work delivered for first-line, risk and internal audit teams</span></div>
+    </div>
+  </div>
+
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="eyebrow">Services</span><h2>What we do</h2></div>
+        <p class="lede">Eight service lines, each led by a credentialed senior practitioner. Engage one for a defined scope, or combine them into an integrated assurance program.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <div class="svc-top"><h3>AI Governance &amp; Assurance</h3><span class="tag">ISO 42001 · AI RMF</span></div>
+          <p>Build and test the controls that make AI use defensible, from policy through model-level audit.</p>
+          <ul>
+            <li>ISO/IEC 42001 readiness assessments and internal audits</li>
+            <li>NIST AI RMF adoption and maturity assessments</li>
+            <li>Trustworthy AI policy, charter and working-group design</li>
+            <li>AI inventory, risk tiering and audit programs for AI/ML systems</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>IT Audit &amp; Internal Audit Support</h3><span class="tag">ITGC · IIA</span></div>
+          <p>Outsourced and co-sourced IT audit delivery across the full audit lifecycle.</p>
+          <ul>
+            <li>Risk-based IT audit strategy and multi-year audit plans</li>
+            <li>ITGC, application, IAM, data protection and IT asset management audits</li>
+            <li>Security operations, infrastructure and cloud audits</li>
+            <li>Audit committee and executive reporting</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>Cybersecurity &amp; Information Security Risk</h3><span class="tag">ISO 27001 · NIST CSF</span></div>
+          <p>Measure your security program against the frameworks your stakeholders expect.</p>
+          <ul>
+            <li>ISO/IEC 27001 readiness, gap assessments and internal ISMS audits</li>
+            <li>NIST CSF and NIST 800-53 control assessments</li>
+            <li>Information security policy, standard and control hierarchy design</li>
+            <li>NY DFS Part 500 cybersecurity compliance reviews</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>Regulatory Compliance &amp; Exam Readiness</h3><span class="tag">OCC · FFIEC</span></div>
+          <p>Prepare for examinations and close findings with evidence regulators accept.</p>
+          <ul>
+            <li>OCC, FFIEC and CFPB examination readiness</li>
+            <li>Independent validation of MRA and Consent Order remediation</li>
+            <li>Examiner and external auditor request coordination</li>
+            <li>GLBA, GDPR, CCPA and DORA requirement mapping</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>SOX, SOC &amp; Certification Audit Support</h3><span class="tag">SOX 404 · SSAE 18</span></div>
+          <p>Get audit-ready and stay that way, with organized evidence and tracked remediation.</p>
+          <ul>
+            <li>IT SOX (302/404) ITGC design, walkthroughs and testing</li>
+            <li>SOC 1 and SOC 2 readiness and evidence repositories</li>
+            <li>Control gap analysis and corrective action tracking to closure</li>
+            <li>Support for private-to-public company control transitions</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>Third-Party &amp; Vendor Risk Management</h3><span class="tag">Global TPRM</span></div>
+          <p>Verify that vendors and offshore delivery centers meet your security, privacy and contract terms.</p>
+          <ul>
+            <li>TPRM program design, vendor tiering and due-diligence workflows</li>
+            <li>On-site and remote audits of BPO, ITO and managed service providers</li>
+            <li>Security and privacy clause review in vendor and customer contracts</li>
+            <li>SOC report review and complementary user-entity control mapping</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>GRC Program Design &amp; Automation</h3><span class="tag">RCM · CCM</span></div>
+          <p>Reduce duplicate testing and give leadership a live view of control health.</p>
+          <ul>
+            <li>Rationalized risk and control matrices mapped to a unified framework</li>
+            <li>Three-lines-of-defense testing alignment and methodology</li>
+            <li>GRC platform requirements and workflow design (ServiceNow, ProcessUnity)</li>
+            <li>Continuous control monitoring and Power BI risk dashboards</li>
+          </ul>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><h3>Cloud Governance, Privacy &amp; Due Diligence</h3><span class="tag">CSA CCM · Azure</span></div>
+          <p>Address risk early, before a migration, integration or acquisition closes.</p>
+          <ul>
+            <li>Pre-implementation reviews for cloud migrations on Microsoft Azure</li>
+            <li>Cloud control assessments using the CSA Cloud Controls Matrix</li>
+            <li>Data privacy risk evaluations and privacy-by-design reviews</li>
+            <li>Technology and security due diligence for mergers and acquisitions</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="engagements">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="eyebrow">Engagement models</span><h2>Ways to work with us</h2></div>
+        <p class="lede">Scope and structure follow your need. Every engagement has a defined deliverable and a senior practitioner accountable for it.</p>
+      </div>
+      <div class="models">
+        <div class="model"><span class="tag">Fixed scope</span><h3>Assessments</h3><p>Readiness, gap and maturity assessments with a prioritized remediation roadmap.</p></div>
+        <div class="model"><span class="tag">Co-source</span><h3>Audit delivery</h3><p>Senior IT audit capacity that plugs into your internal audit plan and methodology.</p></div>
+        <div class="model"><span class="tag">Independent</span><h3>Validation</h3><p>Independent testing of remediation for regulatory findings, MRAs and audit issues.</p></div>
+        <div class="model"><span class="tag">Retainer</span><h3>Advisory</h3><p>Ongoing SME support for GRC, security, privacy and AI governance decisions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="approach">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="eyebrow">Approach</span><h2>How an engagement runs</h2></div>
+        <p class="lede">A familiar audit discipline, applied with enough flexibility to fit your calendar and your teams.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Scope</h3><p>Agree objectives, criteria, frameworks and stakeholders. Confirm what evidence will satisfy each requirement.</p></li>
+        <li><h3>Assess</h3><p>Walk through processes, test controls and validate evidence with control owners.</p></li>
+        <li><h3>Report</h3><p>Deliver risk-rated findings, root causes and practical recommendations in plain language.</p></li>
+        <li><h3>Validate</h3><p>Track corrective actions and independently confirm remediation through closure.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="frameworks">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="eyebrow">Frameworks</span><h2>Standards and regulations we work with</h2></div>
+        <p class="lede">We map overlapping requirements to one control set, so a single test can satisfy several obligations.</p>
+      </div>
+      <div class="fw">
+        <div class="fw-row"><h3>Banking &amp; financial regulation</h3><div class="chips"><span class="chip">OCC</span><span class="chip">FFIEC</span><span class="chip">CFPB</span><span class="chip">GLBA</span><span class="chip">NY DFS Part 500</span><span class="chip">SWIFT CSP</span><span class="chip">DORA</span></div></div>
+        <div class="fw-row"><h3>Financial reporting &amp; attestation</h3><div class="chips"><span class="chip">SOX 302 / 404</span><span class="chip">SSAE 18 SOC 1</span><span class="chip">SOC 2</span><span class="chip">COSO</span></div></div>
+        <div class="fw-row"><h3>Security &amp; IT governance</h3><div class="chips"><span class="chip">ISO/IEC 27001</span><span class="chip">ISO/IEC 27032</span><span class="chip">NIST CSF</span><span class="chip">NIST 800-53</span><span class="chip">CIS Controls</span><span class="chip">COBIT</span><span class="chip">ITIL</span><span class="chip">CSA CCM</span><span class="chip">UCF</span></div></div>
+        <div class="fw-row"><h3>Privacy</h3><div class="chips"><span class="chip">GDPR</span><span class="chip">CCPA</span><span class="chip">HIPAA</span></div></div>
+        <div class="fw-row"><h3>Artificial intelligence</h3><div class="chips"><span class="chip">ISO/IEC 42001</span><span class="chip">NIST AI RMF</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="industries">
+    <div class="wrap two">
+      <div>
+        <span class="eyebrow">Industries</span>
+        <h2>Who we serve</h2>
+        <ul class="list-ruled">
+          <li><b>Banks and savings institutions</b><span>Federally and state-regulated institutions preparing for examinations.</span></li>
+          <li><b>Mortgage servicing and lending</b><span>Servicers, sub-servicers and originators with heavy vendor and data obligations.</span></li>
+          <li><b>Fintech and financial services providers</b><span>Firms that must evidence controls to bank partners and customers.</span></li>
+          <li><b>BPO, ITO and managed service providers</b><span>Providers preparing for client audits and SOC reports.</span></li>
+          <li><b>Healthcare and manufacturing</b><span>Organizations needing SOX, ITGC and application security assurance.</span></li>
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow">Why Princeton Solutions</span>
+        <h2>What sets us apart</h2>
+        <ul class="list-ruled">
+          <li><b>Senior practitioners on every engagement</b><span>The person who scopes your work is the person who delivers it.</span></li>
+          <li><b>Regulator-tested experience</b><span>Our work has been shaped by OCC examinations, Consent Orders and Big-4 audits.</span></li>
+          <li><b>Independence</b><span>We assess and advise. We do not resell software or implementation services.</span></li>
+          <li><b>Global vendor reach</b><span>Audits of delivery centers in India, the Philippines, Malaysia, Singapore, Costa Rica and Europe.</span></li>
+          <li><b>Built for small teams too</b><span>Right-sized engagements for organizations without a large audit or GRC function.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="cred-h">
+    <div class="wrap">
+      <span class="eyebrow">Credentials</span>
+      <h2 id="cred-h">Engagements are led by certified professionals</h2>
+      <div class="creds">
+        <div class="cred"><b>CISA</b><span>Certified Information Systems Auditor</span></div>
+        <div class="cred"><b>CISM</b><span>Certified Information Security Manager</span></div>
+        <div class="cred"><b>CDPSE</b><span>Certified Data Privacy Solutions Engineer</span></div>
+        <div class="cred"><b>CISSO</b><span>Certified Information Systems Security Officer</span></div>
+        <div class="cred"><b>ISO 42001 LA</b><span>Lead Auditor, AI Management Systems</span></div>
+        <div class="cred"><b>ISO 27001 LA</b><span>Lead Auditor, Information Security</span></div>
+        <div class="cred"><b>ISO 27032</b><span>Cybersecurity Manager</span></div>
+        <div class="cred"><b>Azure</b><span>Microsoft Certified Cloud Solutions Architect</span></div>
+      </div>
+      <p class="note">Professional memberships include ISACA and the Institute of Internal Auditors (IIA).</p>
+    </div>
+  </section>
+
+  <section class="block" id="contact" style="border-bottom:0">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2>Start with a conversation</h2>
+        <p class="lede" style="margin-top:16px">Tell us about your audit, exam or governance need. We will reply within two business days with a proposed scope.</p>
+        <dl class="contact-meta">
+          <div><dt>Email</dt><dd id="email-text">info@yourdomain.com</dd></div>
+          <div><dt>Based in</dt><dd>Pennsylvania, USA · Serving clients nationwide and remotely</dd></div>
+          <div><dt>Company</dt><dd>Princeton Solutions Inc. · Pennsylvania S corporation since 2012</dd></div>
+        </dl>
+      </div>
+      <form class="card" id="contact-form" novalidate>
+        <div class="row2">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-org">Organization</label><input id="f-org" name="org" autocomplete="organization"></div>
+        </div>
+        <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-topic">Area of interest</label>
+          <select id="f-topic" name="topic">
+            <option>AI governance &amp; assurance</option><option>IT audit &amp; internal audit support</option><option>Cybersecurity &amp; information security risk</option><option>Regulatory compliance &amp; exam readiness</option><option>SOX, SOC &amp; certification audit support</option><option>Third-party &amp; vendor risk management</option><option>GRC program design &amp; automation</option><option>Cloud governance, privacy &amp; due diligence</option><option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-msg">How can we help?</label><textarea id="f-msg" name="message" required></textarea></div>
+        <div><button class="btn btn-primary" type="submit">Send inquiry</button></div>
+        <p class="form-msg" id="form-msg" aria-live="polite">Your email app will open with this message ready to send.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot" style="border-top:1px solid var(--rule);padding-top:24px">
+    <span>© <span id="yr">2026</span> Princeton Solutions Inc. All rights reserved.</span>
+    <span>IT Audit · GRC · Cybersecurity · Compliance · AI Governance</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var CONTACT_EMAIL = "info@yourdomain.com"; // replace with your business email
+  document.getElementById("email-text").textContent = CONTACT_EMAIL;
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  var form = document.getElementById("contact-form"), msg = document.getElementById("form-msg");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var n = form.name.value.trim(), em = form.email.value.trim(), m = form.message.value.trim();
+    if(!n || !em || !m || !form.email.checkValidity()){ msg.textContent = "Please add your name, a valid work email and a short message."; return; }
+    var subject = "Inquiry: " + form.topic.value + (form.org.value.trim() ? " (" + form.org.value.trim() + ")" : "");
+    var body = m + "\n\n" + n + "\n" + em + (form.org.value.trim() ? "\n" + form.org.value.trim() : "");
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    msg.textContent = "If your email app did not open, write to " + CONTACT_EMAIL + " directly.";
+  });
+})();
+</script>
+
+</body></html>
