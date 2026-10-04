@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   // Staging/preview origins must not be indexed. Only a confirmed production
   // origin flips this on.
-  robots: SITE.originConfirmed
+  robots: SITE.allowIndexing
     ? { index: true, follow: true }
     : { index: false, follow: false, nocache: true },
 };

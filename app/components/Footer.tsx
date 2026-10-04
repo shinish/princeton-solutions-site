@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { footerNav, SITE, footer as footerCopy } from "../content";
-import { LogoMark, ThreeLines } from "./Logo";
 import { ButtonLink } from "./Button";
 
 export default function Footer() {
@@ -35,12 +35,28 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 grid gap-6 md:grid-cols-[auto_1fr_auto] md:items-center">
-          <div className="flex items-center gap-3">
-            <LogoMark size={30} />
-            <span className="font-display font-semibold uppercase tracking-[.02em] text-[14px]">Princeton Solutions Inc.</span>
-          </div>
-          <ThreeLines className="w-[86px] h-auto justify-self-start md:justify-self-center opacity-90" />
+        <div className="pt-10 grid gap-8 md:grid-cols-[auto_1fr_auto] md:items-center">
+          {/* Shield mark on transparent ground — sits directly on the dark
+              footer, so no light plate is needed behind it. */}
+          <Link
+            href="/"
+            className="justify-self-start inline-block no-underline transition-opacity hover:opacity-80"
+            aria-label={`${SITE.name} — home`}
+          >
+            <Image
+              src="/logo-shield.png"
+              alt=""
+              width={512}
+              height={480}
+              sizes="76px"
+              className="block w-[68px] h-auto"
+            />
+          </Link>
+
+          <p className="justify-self-start md:justify-self-center font-display italic text-[15px] text-surface/70">
+            &ldquo;Trust through Governance&rdquo;
+          </p>
+
           <p className="font-mono text-[10px] tracking-[.14em] uppercase text-surface/60 md:text-right">
             © {new Date().getFullYear()} {footerCopy.copy}<br />
             {SITE.region} · {SITE.entity}

@@ -338,9 +338,14 @@ export const SITE = {
   founded: "2012",
   /** No street address is published: none was supplied and none may be invented. */
   streetAddress: null as string | null,
-  /** Production origin. Used for canonicals, sitemap and OG URLs. */
+  /** Where the site is served. Used for canonicals, sitemap and OG URLs. */
   origin: process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://example.invalid",
   originConfirmed: Boolean(process.env.NEXT_PUBLIC_SITE_ORIGIN),
+  /**
+   * Indexing is opt-in and separate from the origin, so a preview deploy can
+   * have correct canonical URLs while still being excluded from search.
+   */
+  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
 };
 
 export const nav2 = [

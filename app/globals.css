@@ -149,6 +149,18 @@
   .btn[aria-disabled="true"], .btn:disabled { cursor: not-allowed; color: var(--muted); }
   .btn[aria-disabled="true"]::before, .btn:disabled::before { background: var(--rule); }
 
+  /* Nav separator, slanted to the same angle as the buttons.
+     The button clip-path offsets 13px across a 50px height, so the lean is
+     atan(13/50) = 14.57deg. Expressed as a skew so it holds at any height. */
+  .nav-sep {
+    width: 1.5px;
+    height: 17px;
+    background: currentColor;
+    opacity: .3;
+    transform: skewX(-14.57deg);
+    flex: none;
+  }
+
   /* ---- Motifs ---------------------------------------------------------- */
   /* bullet eyebrow marker */
   .bands {

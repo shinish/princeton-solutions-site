@@ -10,7 +10,7 @@ export const dynamic = "force-static";
  * deploy being indexed under the wrong hostname. Set the env var to go live.
  */
 export default function robots(): MetadataRoute.Robots {
-  if (!SITE.originConfirmed) {
+  if (!SITE.allowIndexing) {
     return { rules: [{ userAgent: "*", disallow: "/" }] };
   }
   return {

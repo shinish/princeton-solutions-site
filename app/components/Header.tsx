@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { nav2, SITE } from "../content";
-import { LogoMark, Wordmark } from "./Logo";
+import Image from "next/image";
 import { ButtonLink } from "./Button";
 
 export default function Header() {
@@ -22,27 +22,40 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-dark/95 backdrop-blur-[8px] border-b border-rule-dark text-white">
       <div className="w-full px-[var(--gutter)] h-[72px] flex items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3 no-underline text-white">
-          <LogoMark size={32} />
-          <Wordmark />
+        {/* Supplied artwork, recoloured for dark surfaces: the near-black
+            wordmark is lifted to white while the gradient shield is left
+            untouched, so it sits on the dark bar with no plate behind it. */}
+        <Link href="/" className="flex items-center no-underline shrink-0">
+          <Image
+            src="/logo-nav-light.png"
+            alt={`${SITE.name} — IT risk, cybersecurity and AI governance`}
+            width={880}
+            height={217}
+            priority
+            sizes="(max-width: 1024px) 190px, 230px"
+            className="block w-[190px] lg:w-[230px] h-auto"
+          />
         </Link>
 
-        <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
-          {nav2.map((n) => {
+        <nav aria-label="Primary" className="hidden lg:flex items-center gap-6">
+          {nav2.map((n, i) => {
             const active = pathname === n.href || pathname.startsWith(n.href + "/");
             return (
-              <Link
-                key={n.href}
-                href={n.href}
-                aria-current={active ? "page" : undefined}
-                className={`link-ul font-mono text-[11.5px] tracking-[.14em] uppercase no-underline ${
-                  active ? "text-accent" : "text-white/80 hover:text-accent"
-                }`}
-              >
-                {n.label}
-              </Link>
+              <Fragment key={n.href}>
+                {i > 0 && <span aria-hidden="true" className="nav-sep text-white" />}
+                <Link
+                  href={n.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`link-ul font-mono text-[11.5px] tracking-[.14em] uppercase no-underline ${
+                    active ? "text-accent" : "text-white/80 hover:text-accent"
+                  }`}
+                >
+                  {n.label}
+                </Link>
+              </Fragment>
             );
           })}
+          <span aria-hidden="true" className="nav-sep text-white" />
           <ButtonLink href="/contact" variant="primary">Request a consultation</ButtonLink>
         </nav>
 
@@ -67,7 +80,13 @@ export default function Header() {
       >
         <div className="flex flex-col h-full px-[var(--gutter)] py-5">
           <div className="flex items-center justify-between h-[52px]">
-            <LogoMark size={30} />
+            <Image
+              src="/logo-nav-light.png"
+              alt=""
+              width={880}
+              height={217}
+              className="block w-[150px] h-auto"
+            />
             <button type="button" onClick={closeMenu} className="inline-flex items-center gap-2 min-h-[44px] px-2 -mr-2 font-mono text-[11px] tracking-[.16em] uppercase">
               Close <span aria-hidden="true" className="text-[17px] leading-none">×</span>
             </button>
