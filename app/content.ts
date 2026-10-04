@@ -348,6 +348,15 @@ export const SITE = {
   allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
 };
 
+/**
+ * Resolve a path in public/ against the deployment's basePath.
+ *
+ * next/link and _next/static get the prefix automatically; next/image does not
+ * apply it to public/ files, so every such reference must go through this.
+ */
+export const asset = (path: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 export const nav2 = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },

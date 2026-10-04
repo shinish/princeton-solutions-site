@@ -1,6 +1,15 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+// GitHub Pages serves the site under /<repo>/ with trailing slashes, so routes
+// are rewritten when BASE_URL points at the deployment.
+const PREFIX = process.env.ROUTE_PREFIX ?? "";
+const SLASH = process.env.TRAILING_SLASH === "true";
+const r = (p: string) => {
+  if (p === "/") return PREFIX ? `${PREFIX}/` : "/";
+  return `${PREFIX}${p}${SLASH ? "/" : ""}`;
+};
+
 const ROUTES = [
   "/", "/about", "/services", "/faq", "/contact",
   "/privacy", "/terms", "/accessibility",
@@ -33,7 +42,7 @@ test.describe("routes", () => {
         if (r.status() >= 400) badStatus.push(`${r.url()} -> ${r.status()}`);
       });
 
-      const res = await page.goto(route);
+      const res = await page.goto(r(route));
       expect(res?.status(), `status for ${route}`).toBe(200);
       await expect(page.locator("h1")).toHaveCount(1);
       await page.waitForLoadState("networkidle").catch(() => {});
@@ -45,7 +54,7 @@ test.describe("routes", () => {
 });
 
 test("missing route returns a real 404", async ({ page }) => {
-  const res = await page.goto("/no-such-page-xyz");
+  const res = await page.goto(r("/no-such-page-xyz"));
   expect(res?.status()).toBe(404);
 });
 
@@ -55,7 +64,7 @@ test.describe("responsive", () => {
       const offenders: Record<string, string[]> = {};
       for (const route of ["/", "/services", "/contact", "/privacy", "/services/grc-program-design-and-automation"]) {
         await page.setViewportSize({ width: w, height: 900 });
-        await page.goto(route);
+        await page.goto(r(route));
         const bad = await page.evaluate((vw) => {
           const doc = document.documentElement;
           const scrolls = doc.scrollWidth > vw + 1;
@@ -73,7 +82,7 @@ test.describe("responsive", () => {
 });
 
 test("skip link is the first focusable and reveals on focus", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(r("/"));
   await page.keyboard.press("Tab");
   const focused = page.locator(":focus");
   await expect(focused).toHaveText(/skip to main content/i);
@@ -83,7 +92,7 @@ test("skip link is the first focusable and reveals on focus", async ({ page }) =
 
 test("mobile menu traps focus, closes on Escape and returns focus", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 });
-  await page.goto("/");
+  await page.goto(r("/"));
   const trigger = page.getByRole("button", { name: /menu/i });
   await trigger.click();
   const dialog = page.locator("dialog[open]");
@@ -95,15 +104,15 @@ test("mobile menu traps focus, closes on Escape and returns focus", async ({ pag
 
 test("mobile menu navigates and closes", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 });
-  await page.goto("/");
+  await page.goto(r("/"));
   await page.getByRole("button", { name: /menu/i }).click();
   await page.locator("dialog[open]").getByRole("link", { name: /faq/i }).click();
-  await expect(page).toHaveURL(/\/faq$/);
+  await expect(page).toHaveURL(/\/faq\/?$/);
   await expect(page.locator("dialog[open]")).toHaveCount(0);
 });
 
 test("contact form blocks empty submit and announces field errors", async ({ page }) => {
-  await page.goto("/contact");
+  await page.goto(r("/contact"));
   await page.getByRole("button", { name: /compose this enquiry/i }).click();
 
   const nameErr = page.getByRole("alert").first();
@@ -121,7 +130,7 @@ test("contact form blocks empty submit and announces field errors", async ({ pag
 });
 
 test("contact form never claims the message was sent", async ({ page }) => {
-  await page.goto("/contact");
+  await page.goto(r("/contact"));
   await page.fill("#c-name", "Test Person");
   await page.fill("#c-email", "test@example.com");
   await page.fill("#c-msg", "We need an ISO 42001 readiness assessment this quarter.");
@@ -135,7 +144,7 @@ test("contact form never claims the message was sent", async ({ page }) => {
 });
 
 test("service ledger discloses one row at a time", async ({ page }) => {
-  await page.goto("/services");
+  await page.goto(r("/services"));
   const rows = page.locator("details[name=service-ledger]");
   await expect(rows).toHaveCount(8);
   await rows.nth(0).locator("summary").click();
@@ -146,7 +155,7 @@ test("service ledger discloses one row at a time", async ({ page }) => {
 });
 
 test("framework filter narrows the register and reports the count", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(r("/"));
   const privacy = page.getByRole("button", { name: "Privacy", exact: true });
   await privacy.click();
   await expect(privacy).toHaveAttribute("aria-pressed", "true");
@@ -161,7 +170,7 @@ test("framework filter narrows the register and reports the count", async ({ pag
 test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
   for (const route of ["/", "/services", "/contact", "/faq", "/privacy", "/services/ai-governance-and-assurance"]) {
     test(`axe finds no violations on ${route}`, async ({ page }) => {
-      await page.goto(route);
+      await page.goto(r(route));
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
         .analyze();
@@ -177,7 +186,7 @@ test.describe("reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
 
   test("all animation and transition durations collapse", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(r("/"));
     const moving = await page.evaluate(() => {
       const bad: string[] = [];
       for (const el of document.querySelectorAll<HTMLElement>("body *, body *::before")) {
@@ -195,7 +204,7 @@ test.describe("reduced motion", () => {
   });
 
   test("hero content is visible, not stuck at opacity 0", async ({ page }) => {
-    await page.goto("/");
+    await page.goto(r("/"));
     const h1 = page.locator("h1");
     await expect(h1).toBeVisible();
     expect(await h1.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");

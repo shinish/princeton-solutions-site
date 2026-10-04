@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { footerNav, SITE, footer as footerCopy } from "../content";
+import { asset, footerNav, SITE, footer as footerCopy } from "../content";
 import { ButtonLink } from "./Button";
 
 export default function Footer() {
@@ -44,7 +44,7 @@ export default function Footer() {
             aria-label={`${SITE.name} — home`}
           >
             <Image
-              src="/logo-shield.png"
+              src={asset("/logo-shield.png")}
               alt=""
               width={512}
               height={480}

@@ -90,6 +90,10 @@ if (content) {
 }
 
 /* ------------------------------------------------------ B: internal links */
+// Routes in a sub-path build carry the basePath; strip it before resolving.
+const BASE_PATH = process.env.PAGES_BASE_PATH || "";
+const unbase = (h) =>
+  BASE_PATH && h.startsWith(BASE_PATH) ? h.slice(BASE_PATH.length) || "/" : h;
 const routeSet = new Set(pages.map((p) => p.route));
 const fileSet = new Set(files.map((f) => "/" + relative(OUT, f)));
 let linkCount = 0;
@@ -109,7 +113,8 @@ for (const p of pages) {
       if (id && !ids.has(id)) fail("B links", `${p.route} -> ${href} (no matching id on the page)`);
       continue;
     }
-    const [path, frag] = href.split("#");
+    const [rawPath, frag] = href.split("#");
+    const path = unbase(rawPath);
     const clean = path.replace(/\/$/, "") || "/";
     if (!routeSet.has(clean) && !fileSet.has(path)) {
       fail("B links", `${p.route} -> ${href} (no exported page or file)`);
@@ -167,7 +172,11 @@ for (const p of pages) {
   }
 }
 
-/* ------------------------------------------------------------ D: local assets */
+/* --------------------------------------------- D: local assets + basePath */
+// next/image does not prefix public/ paths with basePath. When the build
+// targets a sub-path deployment, every local reference must carry it or the
+// asset 404s in production while passing every local check.
+const BASE = BASE_PATH;
 let assetCount = 0;
 for (const p of pages) {
   const html = readFileSync(p.file, "utf8");
@@ -178,7 +187,13 @@ for (const p of pages) {
   for (const r of refs) {
     if (/^(https?:|data:|mailto:)/.test(r)) continue;
     assetCount++;
-    if (!fileSet.has(r.split("?")[0])) fail("D assets", `${p.route} references missing asset ${r}`);
+    const clean = r.split("?")[0];
+    if (BASE && !clean.startsWith(BASE + "/")) {
+      fail("D assets", `${p.route} references ${r} without the ${BASE} basePath — it will 404 in production`);
+      continue;
+    }
+    const onDisk = BASE ? clean.slice(BASE.length) : clean;
+    if (!fileSet.has(onDisk)) fail("D assets", `${p.route} references missing asset ${r}`);
   }
 }
 

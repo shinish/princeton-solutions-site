@@ -20,10 +20,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: s.title,
     description: s.blurb,
     alternates: { canonical: `/services/${slug}` },
+    // a child openGraph replaces rather than deep-merges the parent's, so
+    // type and siteName have to be restated or they are dropped
     openGraph: {
+      type: "website",
+      siteName: SITE.name,
+      locale: "en_US",
       title: `${s.title} — ${SITE.shortName}`,
       description: s.blurb,
       url: `/services/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${s.title} — ${SITE.shortName}`,
+      description: s.blurb,
     },
   };
 }

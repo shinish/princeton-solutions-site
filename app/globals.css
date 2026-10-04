@@ -399,6 +399,36 @@
     animation-delay: calc(var(--i, 0) * .12s);
   }
 
+  /* Word-by-word headline reveal: each word rises out of a clipping mask.
+     Real spaces sit between the masks as ordinary text nodes, so selection,
+     copy and screen-reader output are unaffected by the split. */
+  @keyframes word-rise {
+    from { transform: translateY(108%); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+  }
+  .word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    /* descenders would otherwise be clipped by the mask */
+    padding-bottom: .09em;
+  }
+  .word {
+    display: inline-block;
+    animation: word-rise .85s cubic-bezier(.19, .84, .26, 1) both;
+    animation-delay: calc(.12s + (var(--i, 0) * .065s));
+  }
+
+  /* Lede wipes in from the leading edge just after the headline lands. */
+  @keyframes lede-in {
+    from { opacity: 0; transform: translateY(14px); clip-path: inset(0 100% 0 0); }
+    to   { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+  }
+  .lede-in {
+    animation: lede-in .9s cubic-bezier(.2, .75, .3, 1) both;
+    animation-delay: var(--d, .55s);
+  }
+
   /* The accent word breathes, slowly and subtly. */
   @keyframes ai-glow {
     0%, 100% { text-shadow: 0 0 0 rgba(255, 45, 120, 0); }

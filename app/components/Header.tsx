@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { nav2, SITE } from "../content";
+import { asset, nav2, SITE } from "../content";
 import Image from "next/image";
 import { ButtonLink } from "./Button";
 
@@ -27,7 +27,7 @@ export default function Header() {
             untouched, so it sits on the dark bar with no plate behind it. */}
         <Link href="/" className="flex items-center no-underline shrink-0 transition-opacity duration-200 hover:opacity-80">
           <Image
-            src="/logo-nav-light.png"
+            src={asset("/logo-nav-light.png")}
             alt={`${SITE.name} — IT risk, cybersecurity and AI governance`}
             width={880}
             height={217}
@@ -81,7 +81,7 @@ export default function Header() {
         <div className="flex flex-col h-full px-[var(--gutter)] py-5">
           <div className="flex items-center justify-between h-[52px]">
             <Image
-              src="/logo-nav-light.png"
+              src={asset("/logo-nav-light.png")}
               alt=""
               width={880}
               height={217}

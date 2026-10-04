@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   // <route>.html and let directory resolution do the work.
   trailingSlash: Boolean(basePath),
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),
+  // next/image does NOT prefix public/ paths with basePath, so the value is
+  // exposed and applied explicitly via asset() in app/content.ts.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   images: { unoptimized: true },
 };
 

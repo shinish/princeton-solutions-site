@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ButtonLink, Bands } from "./components/Button";
@@ -38,18 +39,30 @@ export default function Home() {
             Trust through governance · Est. 2012
           </p>
 
-          <h1
-            className={`hero-in ${h1} mt-6 max-w-[17ch] text-white`}
-            style={{ "--i": 1 } as React.CSSProperties}
-          >
-            Independent assurance for technology, security and{" "}
-            <span className="ai-accent text-accent">AI</span>
+          <h1 className={`${h1} mt-6 max-w-[17ch] text-white`}>
+            {"Independent assurance for technology, security and".split(" ").map((w, i) => (
+              <Fragment key={`${w}-${i}`}>
+                <span className="word-mask">
+                  <span className="word" style={{ "--i": i } as React.CSSProperties}>
+                    {w}
+                  </span>
+                </span>{" "}
+              </Fragment>
+            ))}
+            <span className="word-mask">
+              <span
+                className="word ai-accent text-accent"
+                style={{ "--i": 7 } as React.CSSProperties}
+              >
+                AI
+              </span>
+            </span>
           </h1>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16 lg:items-end">
             <p
-              className="hero-in text-[clamp(16px,1.35vw,19px)] leading-[1.6] text-white/75 max-w-[58ch]"
-              style={{ "--i": 2 } as React.CSSProperties}
+              className="lede-in text-[clamp(16px,1.35vw,19px)] leading-[1.6] text-white/75 max-w-[58ch]"
+              style={{ "--d": "0.62s" } as React.CSSProperties}
             >
               We help regulated organizations prove their controls work. IT audit, governance,
               risk and compliance, third-party risk and AI governance — delivered by senior
@@ -57,7 +70,7 @@ export default function Home() {
             </p>
             <div
               className="hero-in flex flex-wrap gap-3"
-              style={{ "--i": 3 } as React.CSSProperties}
+              style={{ "--i": 7 } as React.CSSProperties}
             >
               <ButtonLink href="/contact">Discuss an engagement</ButtonLink>
               <ButtonLink href="/services" variant="on-dark">View services</ButtonLink>
