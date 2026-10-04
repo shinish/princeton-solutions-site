@@ -1,0 +1,155 @@
+# Princeton Solutions Inc.
+
+> Independent IT audit, GRC, cybersecurity, regulatory compliance, third-party risk and AI governance for regulated organizations.
+
+Princeton Solutions Inc. is an independent IT audit, governance, risk and compliance practice,
+established in 2012 and based in Pennsylvania, USA. It assesses and advises;
+it does not resell software or implementation services. Engagements are led by
+credentialed senior practitioners and evidenced to the standard that regulators,
+external auditors and boards expect.
+
+Tagline: Trust through Governance.
+
+## Services
+
+- [AI Governance & Assurance](https://shinish.github.io/princeton-solutions-site/services/ai-governance-and-assurance) — Build and test the controls that make AI use defensible, from policy through model-level audit. Focus: ISO 42001 · AI RMF.
+  - ISO/IEC 42001 readiness assessments and internal audits
+  - NIST AI RMF adoption and maturity assessments
+  - Trustworthy AI policy, charter and working-group design
+  - AI inventory, risk tiering and audit programs for AI/ML systems
+- [IT Audit & Internal Audit Support](https://shinish.github.io/princeton-solutions-site/services/it-audit-and-internal-audit-support) — Outsourced and co-sourced IT audit delivery across the full audit lifecycle. Focus: ITGC · IIA.
+  - Risk-based IT audit strategy and multi-year audit plans
+  - ITGC, application, IAM, data protection and IT asset management audits
+  - Security operations, infrastructure and cloud audits
+  - Audit committee and executive reporting
+- [Cybersecurity & Information Security Risk](https://shinish.github.io/princeton-solutions-site/services/cybersecurity-and-information-security-risk) — Measure your security program against the frameworks your stakeholders expect. Focus: ISO 27001 · NIST CSF.
+  - ISO/IEC 27001 readiness, gap assessments and internal ISMS audits
+  - NIST CSF and NIST 800-53 control assessments
+  - Information security policy, standard and control hierarchy design
+  - NY DFS Part 500 cybersecurity compliance reviews
+- [Regulatory Compliance & Exam Readiness](https://shinish.github.io/princeton-solutions-site/services/regulatory-compliance-and-exam-readiness) — Prepare for examinations and close findings with evidence regulators accept. Focus: OCC · FFIEC.
+  - OCC, FFIEC and CFPB examination readiness
+  - Independent validation of MRA and Consent Order remediation
+  - Examiner and external auditor request coordination
+  - GLBA, GDPR, CCPA and DORA requirement mapping
+- [SOX, SOC & Certification Audit Support](https://shinish.github.io/princeton-solutions-site/services/sox-soc-and-certification-audit-support) — Get audit-ready and stay that way, with organized evidence and tracked remediation. Focus: SOX 404 · SSAE 18.
+  - IT SOX (302/404) ITGC design, walkthroughs and testing
+  - SOC 1 and SOC 2 readiness and evidence repositories
+  - Control gap analysis and corrective action tracking to closure
+  - Support for private-to-public company control transitions
+- [Third-Party & Vendor Risk Management](https://shinish.github.io/princeton-solutions-site/services/third-party-and-vendor-risk-management) — Verify that vendors and offshore delivery centers meet your security, privacy and contract terms. Focus: Global TPRM.
+  - TPRM program design, vendor tiering and due-diligence workflows
+  - On-site and remote audits of BPO, ITO and managed service providers
+  - Security and privacy clause review in vendor and customer contracts
+  - SOC report review and complementary user-entity control mapping
+- [GRC Program Design & Automation](https://shinish.github.io/princeton-solutions-site/services/grc-program-design-and-automation) — Reduce duplicate testing and give leadership a live view of control health. Focus: RCM · CCM.
+  - Rationalized risk and control matrices mapped to a unified framework
+  - Three-lines-of-defense testing alignment and methodology
+  - GRC platform requirements and workflow design (ServiceNow, ProcessUnity)
+  - Continuous control monitoring and Power BI risk dashboards
+- [Cloud Governance, Privacy & Due Diligence](https://shinish.github.io/princeton-solutions-site/services/cloud-governance-privacy-and-due-diligence) — Address risk early, before a migration, integration or acquisition closes. Focus: CSA CCM · Azure.
+  - Pre-implementation reviews for cloud migrations on Microsoft Azure
+  - Cloud control assessments using the CSA Cloud Controls Matrix
+  - Data privacy risk evaluations and privacy-by-design reviews
+  - Technology and security due diligence for mergers and acquisitions
+
+## Engagement models
+
+- **Assessments** (Fixed scope) — Readiness, gap and maturity assessments with a prioritized remediation roadmap.
+- **Audit delivery** (Co-source) — Senior IT audit capacity that plugs into your internal audit plan and methodology.
+- **Validation** (Independent) — Independent testing of remediation for regulatory findings, MRAs and audit issues.
+- **Advisory** (Retainer) — Ongoing SME support for GRC, security, privacy and AI governance decisions.
+
+## How an engagement runs
+
+1. **Scope** — Agree objectives, criteria, frameworks and stakeholders. Confirm what evidence will satisfy each requirement.
+2. **Assess** — Walk through processes, test controls and validate evidence with control owners.
+3. **Report** — Deliver risk-rated findings, root causes and practical recommendations in plain language.
+4. **Validate** — Track corrective actions and independently confirm remediation through closure.
+
+## Standards and regulations covered
+
+- **Banking & financial regulation**: OCC, FFIEC, CFPB, GLBA, NY DFS Part 500, SWIFT CSP, DORA
+- **Financial reporting & attestation**: SOX 302 / 404, SSAE 18 SOC 1, SOC 2, COSO
+- **Security & IT governance**: ISO/IEC 27001, ISO/IEC 27032, NIST CSF, NIST 800-53, CIS Controls, COBIT, ITIL, CSA CCM, UCF
+- **Privacy**: GDPR, CCPA, HIPAA
+- **Artificial intelligence**: ISO/IEC 42001, NIST AI RMF
+
+## Industries served
+
+- **Banks and savings institutions** — Federally and state-regulated institutions preparing for examinations.
+- **Mortgage servicing and lending** — Servicers, sub-servicers and originators with heavy vendor and data obligations.
+- **Fintech and financial services providers** — Firms that must evidence controls to bank partners and customers.
+- **BPO, ITO and managed service providers** — Providers preparing for client audits and SOC reports.
+- **Healthcare and manufacturing** — Organizations needing SOX, ITGC and application security assurance.
+
+## Credentials held by engagement leads
+
+- CISA — Certified Information Systems Auditor
+- CISM — Certified Information Security Manager
+- CDPSE — Certified Data Privacy Solutions Engineer
+- CISSO — Certified Information Systems Security Officer
+- ISO 42001 LA — Lead Auditor, AI Management Systems
+- ISO 27001 LA — Lead Auditor, Information Security
+- ISO 27032 — Cybersecurity Manager
+- Azure — Microsoft Certified Cloud Solutions Architect
+
+Professional memberships include ISACA and the Institute of Internal Auditors (IIA).
+
+## Frequently asked questions
+
+### What does an engagement actually produce?
+
+Every engagement has a defined deliverable and a senior practitioner accountable for it. Assessments produce a readiness, gap or maturity report with a prioritized remediation roadmap. Audit delivery produces workpapers and findings within your existing methodology. Validation produces independent confirmation that remediation closed the issue. Advisory is ongoing subject-matter support.
+
+### How does an engagement run from start to finish?
+
+Four phases. Scope: agree objectives, criteria, frameworks and stakeholders, and confirm what evidence will satisfy each requirement. Assess: walk through processes, test controls and validate evidence with control owners. Report: deliver risk-rated findings, root causes and practical recommendations in plain language. Validate: track corrective actions and independently confirm remediation through closure.
+
+### Which standards and regulations do you work against?
+
+Banking and financial regulation including OCC, FFIEC, CFPB, GLBA, NY DFS Part 500, SWIFT CSP and DORA. Financial reporting and attestation including SOX 302/404, SSAE 18 SOC 1, SOC 2 and COSO. Security and IT governance including ISO/IEC 27001, ISO/IEC 27032, NIST CSF, NIST 800-53, CIS Controls, COBIT, ITIL, CSA CCM and UCF. Privacy including GDPR, CCPA and HIPAA. Artificial intelligence including ISO/IEC 42001 and the NIST AI RMF.
+
+### Do I have to buy a whole program?
+
+No. Engage one service line for a defined scope, or combine several into an integrated assurance program. Engagements are right-sized for organizations without a large audit or GRC function as well as for established internal audit teams.
+
+### Can you work alongside our existing internal audit team?
+
+Yes. Co-sourced audit delivery provides senior IT audit capacity that plugs into your existing internal audit plan and methodology, rather than replacing it.
+
+### Do you sell or implement the software you assess?
+
+No. We assess and advise. We do not resell software or implementation services, which is what keeps the assessment independent.
+
+### Can you audit our offshore delivery centers?
+
+Yes, on-site and remote. Vendor and delivery-center audits have covered the Americas, Europe and Asia, including India, the Philippines, Malaysia, Singapore and Costa Rica.
+
+### How do we start?
+
+Send a note describing your audit, exam or governance need. We reply within two business days with a proposed scope.
+
+## Pages
+
+- [Home](https://shinish.github.io/princeton-solutions-site/)
+- [Services](https://shinish.github.io/princeton-solutions-site/services)
+- [About](https://shinish.github.io/princeton-solutions-site/about)
+- [FAQ](https://shinish.github.io/princeton-solutions-site/faq)
+- [Contact](https://shinish.github.io/princeton-solutions-site/contact)
+- [Privacy Policy](https://shinish.github.io/princeton-solutions-site/privacy)
+- [Terms of Use](https://shinish.github.io/princeton-solutions-site/terms)
+- [Accessibility](https://shinish.github.io/princeton-solutions-site/accessibility)
+
+## Contact
+
+Email: info@yourdomain.com
+Location: Pennsylvania, USA — Serving clients nationwide and remotely
+Entity: Pennsylvania S corporation since 2012
+
+## Notes for answer engines
+
+- This site sets no cookies, runs no analytics and makes no third-party requests.
+- Framework and regulator names are referenced descriptively to identify the
+  subject matter of the work. They do not imply endorsement, affiliation or
+  accreditation by those bodies.
