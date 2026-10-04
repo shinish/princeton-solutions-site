@@ -150,9 +150,12 @@ test("framework filter narrows the register and reports the count", async ({ pag
   const privacy = page.getByRole("button", { name: "Privacy", exact: true });
   await privacy.click();
   await expect(privacy).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByText(/3 of 25 standards shown/)).toBeVisible();
+  await expect(page.locator("[aria-live=polite]").filter({ hasText: /standards/ }))
+    .toHaveText(/Showing 3 of 25 standards/);
+  await expect(page.locator("#frameworks").getByText("03", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "All", exact: true }).click();
-  await expect(page.getByText(/25 of 25 standards shown/)).toBeVisible();
+  await expect(page.locator("[aria-live=polite]").filter({ hasText: /standards/ }))
+    .toHaveText(/Showing 25 of 25 standards/);
 });
 
 test.describe("accessibility (axe, WCAG 2.2 AA)", () => {

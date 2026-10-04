@@ -50,7 +50,7 @@ export default function FaqPage() {
 
           <div className="border-t border-ink">
             {faqs.map((f, i) => (
-              <details key={f.q} name="faq" className="group border-b border-rule">
+              <details key={f.q} name="faq" className="slide group border-b border-rule">
                 <summary className="list-none cursor-pointer select-none grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 py-5 hover:text-accent-ink [&::-webkit-details-marker]:hidden">
                   <span className="font-mono text-[10.5px] text-accent-ink tabular-nums pt-1">
                     {String(i + 1).padStart(2, "0")}

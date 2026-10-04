@@ -32,7 +32,7 @@ export default function ContactPage() {
             <p className="label"><span className="bands" />Details</p>
             <dl className="mt-6 border-t border-ink">
               {contactMeta.map((m) => (
-                <div key={m.dt} className="py-4 border-b border-rule">
+                <div key={m.dt} className="row-hover py-4 border-b border-rule">
                   <dt className="font-mono text-[10px] tracking-[.18em] uppercase text-muted">{m.dt}</dt>
                   <dd className="mt-1.5 m-0 text-[15.5px] leading-[1.5]">
                     {m.dt === "Email" ? (

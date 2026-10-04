@@ -13,6 +13,9 @@
      White on magenta is 3.56 — FAILS — so magenta fills take dark labels (5.51).
    =========================================================================== */
 :root {
+  /* lets height/block-size animate between 0 and auto */
+  interpolate-size: allow-keywords;
+
   --surface: #EDF0F3;      /* light page ground */
   --surface-alt: #F7F9FA;  /* alternating light band */
   --surface-2: #E982E9;    /* unused placeholder guard */
@@ -159,6 +162,159 @@
     opacity: .3;
     transform: skewX(-14.57deg);
     flex: none;
+  }
+
+  /* Angled chip. The box is skewed to the button's 14.57deg lean and the
+     label is counter-skewed, so the shape is a true parallelogram while the
+     text stays upright and readable. */
+  .chip-ang {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 16px;
+    transform: skewX(-14.57deg);
+    border: 1.5px solid var(--rule);
+    background: transparent;
+    transition: background .18s, border-color .18s, color .18s;
+  }
+  .chip-ang > span {
+    display: block;
+    transform: skewX(14.57deg);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .chip-ang:hover { border-color: var(--ink); }
+
+  button.chip-ang { cursor: pointer; }
+  button.chip-ang:not([aria-pressed="true"]) { position: relative; overflow: hidden; }
+  button.chip-ang:not([aria-pressed="true"])::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: var(--ink);
+    transform: translateX(-102%);
+    transition: transform .3s cubic-bezier(.2, .7, .3, 1);
+  }
+  button.chip-ang > span { position: relative; z-index: 1; }
+  button.chip-ang:not([aria-pressed="true"]):hover { color: var(--surface); }
+  button.chip-ang:not([aria-pressed="true"]):hover::before { transform: translateX(0); }
+  .chip-ang[aria-pressed="true"] {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: #fff;
+  }
+  /* Standards chip: the accent sweeps in from the leading edge and the chip
+     lifts slightly. overflow:hidden keeps the sweep inside the parallelogram. */
+  .chip-ang-static {
+    position: relative;
+    overflow: hidden;
+    border-color: var(--rule);
+    color: var(--ink);
+    transition: color .25s, border-color .25s, transform .25s cubic-bezier(.2, .7, .3, 1);
+  }
+  .chip-ang-static::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: var(--accent-ink);
+    transform: translateX(-102%);
+    transition: transform .34s cubic-bezier(.2, .7, .3, 1);
+  }
+  .chip-ang-static > span { position: relative; z-index: 1; }
+  /* transform is one property: the base skew must be repeated here or the
+     chip snaps back to a rectangle on hover. */
+  .chip-ang-static:hover {
+    color: #fff;
+    border-color: var(--accent-ink);
+    transform: skewX(-14.57deg) translateY(-2px);
+  }
+  .chip-ang-static:hover::before { transform: translateX(0); }
+
+  /* Slide-down disclosure. ::details-content animates the native <details>
+     open/close with no JavaScript. Browsers without support simply snap open,
+     which is the previous behaviour, so this is pure progressive enhancement.
+     Wrapped in a reduced-motion guard rather than relying on the global
+     override, because this transitions layout size. */
+  @media (prefers-reduced-motion: no-preference) {
+    details.slide::details-content {
+      block-size: 0;
+      overflow: clip;
+      opacity: 0;
+      transition:
+        block-size .4s cubic-bezier(.2, .7, .3, 1),
+        opacity .3s ease-out .05s,
+        content-visibility .4s allow-discrete;
+    }
+    details.slide[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+
+  /* Hover treatment for ruled list rows: an angled accent bar wipes up from
+     the baseline and the row steps inward. Same 14.57deg lean as the buttons.
+     The global reduced-motion rule neutralises the transitions; the end state
+     still reads, so nothing is lost. */
+  .row-hover {
+    position: relative;
+    padding-left: 0;
+    transition: padding-left .3s cubic-bezier(.2, .7, .3, 1);
+  }
+  .row-hover::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12%;
+    bottom: 12%;
+    width: 3px;
+    background: var(--accent-ink);
+    transform: skewX(-14.57deg) scaleY(0);
+    transform-origin: bottom;
+    transition: transform .3s cubic-bezier(.2, .7, .3, 1);
+  }
+  .row-hover:hover { padding-left: 18px; }
+  .row-hover:hover::before { transform: skewX(-14.57deg) scaleY(1); }
+  .row-hover h3 { transition: color .22s; }
+  .row-hover:hover h3 { color: var(--accent-ink); }
+
+  /* Grid-cell hover: an angled accent rule wipes in along the top edge and the
+     contents lift. Used for the fact strip and the approach phases. */
+  .cell-hover {
+    position: relative;
+    transition: transform .3s cubic-bezier(.2, .7, .3, 1);
+  }
+  .cell-hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background: var(--accent-ink);
+    transform: skewX(-14.57deg) scaleX(0);
+    transform-origin: left;
+    transition: transform .34s cubic-bezier(.2, .7, .3, 1);
+  }
+  .cell-hover:hover { transform: translateY(-4px); }
+  .cell-hover:hover::after { transform: skewX(-14.57deg) scaleX(1); }
+
+  /* Dark-surface variant of the ruled-row hover. */
+  .row-hover-dark::before { background: var(--accent); }
+  .row-hover-dark:hover h3 { color: var(--accent); }
+
+  /* Fact cell divider, skewed to the same 14.57deg lean as the buttons. */
+  .fact-cell + .fact-cell::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1.5px;
+    background: var(--rule);
+    transform: skewX(-14.57deg);
   }
 
   /* ---- Motifs ---------------------------------------------------------- */

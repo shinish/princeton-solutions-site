@@ -25,7 +25,7 @@ export default function Header() {
         {/* Supplied artwork, recoloured for dark surfaces: the near-black
             wordmark is lifted to white while the gradient shield is left
             untouched, so it sits on the dark bar with no plate behind it. */}
-        <Link href="/" className="flex items-center no-underline shrink-0">
+        <Link href="/" className="flex items-center no-underline shrink-0 transition-opacity duration-200 hover:opacity-80">
           <Image
             src="/logo-nav-light.png"
             alt={`${SITE.name} — IT risk, cybersecurity and AI governance`}

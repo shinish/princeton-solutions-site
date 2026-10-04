@@ -82,7 +82,7 @@ export default async function ServiceDetail({ params }: Props) {
             {s.bullets.map((b) => (
               <li
                 key={b}
-                className="grid grid-cols-[auto_1fr] gap-5 items-baseline py-6 border-b border-rule"
+                className="row-hover grid grid-cols-[auto_1fr] gap-5 items-baseline py-6 border-b border-rule"
               >
                 <Bands className="text-accent-ink" />
                 <span className="text-[clamp(17px,2vw,21px)] leading-[1.45]">{b}</span>

@@ -19,7 +19,7 @@ export default function ServiceLedger({ limit }: { limit?: number }) {
           <details
             key={s.title}
             name="service-ledger"
-            className="group border-b border-rule"
+            className="slide group border-b border-rule"
           >
             <summary
               className="

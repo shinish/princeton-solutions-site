@@ -52,24 +52,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────────────── fact band (light) ───────────────── */}
-      <section className="bg-surface-alt border-b border-rule">
+      {/* ───────────────── fact band ───────────────── */}
+      <section className="bg-surface-alt border-b border-ink">
         <div className={`${wrap} grid sm:grid-cols-2 lg:grid-cols-4`}>
-          {facts.map((f, i) => (
-            <div
-              key={f.value}
-              className={`py-9 lg:py-11 lg:px-9 first:lg:pl-0 last:lg:pr-0 ${
-                i < facts.length - 1 ? "lg:border-r border-rule" : ""
-              }`}
-            >
-              <p className="font-display font-extrabold text-[clamp(30px,3.8vw,52px)] leading-none tracking-[-.025em]">
-                {f.value}
-              </p>
-              <p className="mt-3 text-[13.5px] leading-[1.45] text-muted max-w-[26ch]">
-                {f.label}
-              </p>
-            </div>
-          ))}
+          {facts.map((f) => {
+            const [figure, ...rest] = f.value.split(" ");
+            const unit = rest.join(" ");
+            return (
+              <div
+                key={f.value}
+                className="fact-cell cell-hover relative py-10 lg:py-14 lg:px-10 first:lg:pl-0 last:lg:pr-0"
+              >
+                <p className="flex items-baseline gap-2.5">
+                  <span className="font-display font-extrabold tabular-nums leading-[.85] tracking-[-.035em] text-[clamp(46px,6vw,80px)]">
+                    {figure}
+                  </span>
+                  {unit && (
+                    <span className="font-display font-extrabold uppercase leading-none tracking-[-.01em] text-[clamp(15px,1.5vw,20px)] text-accent-ink">
+                      {unit}
+                    </span>
+                  )}
+                </p>
+                <p className="mt-4 pt-4 border-t border-rule font-mono text-[11px] leading-[1.6] tracking-[.1em] uppercase text-muted max-w-[30ch]">
+                  {f.label}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -95,7 +104,7 @@ export default function Home() {
               {controlRecord.rows.map((row) => (
                 <div
                   key={row.dt}
-                  className="grid grid-cols-[84px_minmax(0,1fr)] gap-x-5 py-3.5 border-b border-rule"
+                  className="grid grid-cols-[84px_minmax(0,1fr)] gap-x-5 py-3.5 border-b border-rule transition-colors hover:bg-ink/[.04]"
                 >
                   <dt className="font-mono text-[10px] tracking-[.16em] uppercase text-muted pt-1">
                     {row.dt}
@@ -166,7 +175,7 @@ export default function Home() {
             {steps.map((s, i) => (
               <li
                 key={s.title}
-                className={`py-7 lg:px-7 first:lg:pl-0 last:lg:pr-0 border-b border-rule ${
+                className={`cell-hover py-7 lg:px-7 first:lg:pl-0 last:lg:pr-0 border-b border-rule ${
                   i < steps.length - 1 ? "lg:border-r" : ""
                 }`}
               >
@@ -207,7 +216,7 @@ export default function Home() {
             {models.map((m) => (
               <li
                 key={m.title}
-                className="grid gap-x-8 gap-y-2 py-5 border-b border-rule md:grid-cols-[130px_minmax(0,180px)_minmax(0,1fr)] md:items-baseline"
+                className="row-hover grid gap-x-8 gap-y-2 py-5 border-b border-rule md:grid-cols-[130px_minmax(0,180px)_minmax(0,1fr)] md:items-baseline"
               >
                 <span className="font-mono text-[10.5px] tracking-[.16em] uppercase text-accent-ink">
                   {m.tag}
@@ -223,14 +232,14 @@ export default function Home() {
       </section>
 
       {/* ──────────────── industries + why ──────────────── */}
-      <section className={`${section} border-b border-ink`}>
+      <section id="industries" className={`${section} border-b border-ink`}>
         <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:gap-16`}>
           <div>
             <p className="label">Industries</p>
             <h2 className={`${h2} mt-4 mb-6`}>Who we serve</h2>
             <ul className="border-t border-ink">
               {industries.map((i) => (
-                <li key={i.term} className="py-4 border-b border-rule">
+                <li key={i.term} className="row-hover py-4 border-b border-rule">
                   <h3 className="text-[15.5px] font-semibold leading-[1.35]">{i.term}</h3>
                   <p className="mt-1 text-[14px] leading-[1.5] text-muted">{i.detail}</p>
                 </li>
@@ -242,7 +251,7 @@ export default function Home() {
             <h2 className={`${h2} mt-4 mb-6`}>What sets us apart</h2>
             <ul className="border-t border-ink">
               {differentiators.map((d) => (
-                <li key={d.term} className="py-4 border-b border-rule flex gap-3.5">
+                <li key={d.term} className="row-hover py-4 border-b border-rule flex gap-3.5">
                   <Bands className="text-accent-ink mt-2" />
                   <div>
                     <h3 className="text-[15.5px] font-semibold leading-[1.35]">{d.term}</h3>
@@ -256,31 +265,71 @@ export default function Home() {
       </section>
 
       {/* ───────────────────────── credentials ───────────────────────── */}
-      <section className={`${section} bg-dark text-surface`}>
+      <section className={`${section} bg-dark text-surface overflow-hidden`}>
+        
         <div className={wrap}>
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:items-end">
             <div>
-              <p className="label label-on-dark">Credentials</p>
-              <h2 className={`${h2} mt-4 max-w-[18ch] text-surface`}>
-                Engagements are led by certified professionals
+              <p className="label label-on-dark">
+                <span className="bands" />
+                Credentials
+              </p>
+              <h2 className={`${h2} mt-4 max-w-[16ch] text-surface`}>
+                Who signs the report
               </h2>
             </div>
-            <p className="text-[14px] text-surface/70 max-w-[34ch]">
-              Professional memberships include ISACA and the Institute of Internal Auditors (IIA).
+            <p className="text-[15px] leading-[1.6] text-surface/65 max-w-[46ch]">
+              Every engagement is led by a credentialed senior practitioner — the person who
+              scopes your work is the person who delivers it. Professional memberships include
+              ISACA and the Institute of Internal Auditors.
             </p>
           </div>
-          <ul className="mt-9 grid sm:grid-cols-2 lg:grid-cols-4 border-t border-surface/25">
-            {credentials.map((c) => (
+
+          <ul className="mt-12 border-t border-surface/20">
+            {credentials.map((c, i) => (
               <li
                 key={c.abbr}
-                className="py-5 lg:px-6 first:lg:pl-0 border-b border-surface/15 lg:border-r lg:last:border-r-0"
+                className="
+                  group relative grid items-baseline gap-x-6 gap-y-2 py-5
+                  border-b border-surface/12
+                  grid-cols-[auto_minmax(0,1fr)]
+                  md:grid-cols-[46px_minmax(0,300px)_minmax(0,1fr)_auto]
+                  transition-colors duration-200 motion-reduce:transition-none
+                "
               >
-                <span className="block font-mono text-[13px] tracking-[.04em] text-accent">
+                {/* angled accent, same lean as the buttons */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    absolute left-[-18px] top-1 bottom-1 w-[3px] bg-accent
+                    origin-bottom scale-y-0 group-hover:scale-y-100
+                    transition-transform duration-300 ease-out motion-reduce:transition-none
+                    [transform:skewX(-14.57deg)_scaleY(0)]
+                    group-hover:[transform:skewX(-14.57deg)_scaleY(1)]
+                  "
+                />
+
+                <span className="font-mono text-[10.5px] tabular-nums text-surface/60 group-hover:text-accent transition-colors">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <span className="font-display font-extrabold uppercase tracking-[-.025em] text-[clamp(19px,2.6vw,34px)] leading-[1] group-hover:text-accent transition-colors motion-reduce:transition-none">
                   {c.abbr}
                 </span>
-                <span className="mt-1.5 block text-[13.5px] leading-[1.4] text-surface/70">
+
+                <span className="col-span-2 md:col-span-1 text-[14px] leading-[1.5] text-surface/65 md:pl-2">
                   {c.name}
                 </span>
+
+                <span
+                  aria-hidden="true"
+                  className="
+                    hidden md:block w-[26px] h-[2px] bg-surface/25
+                    group-hover:bg-accent group-hover:w-[42px]
+                    transition-all duration-300 ease-out motion-reduce:transition-none
+                    [transform:skewX(-14.57deg)]
+                  "
+                />
               </li>
             ))}
           </ul>
